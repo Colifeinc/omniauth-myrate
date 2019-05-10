@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{OmniAuth strategy template}
   spec.summary       = spec.description
   spec.homepage      = "https://github.com/gonsuke/omniauth-myrate"
-  spec.license       = "MIT"
+  spec.license       = "Commercial"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
