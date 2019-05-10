@@ -5,7 +5,7 @@ require "omniauth/strategies/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "omniauth-myrate"
-  spec.version       = Omniauth::Myrate::VERSION
+  spec.version       = OmniAuth::Myrate::VERSION
   spec.authors       = ["Takashi Matsuno"]
   spec.email         = ["g0n5uk3@gmail.com"]
 
