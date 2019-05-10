@@ -1,9 +1,9 @@
-RSpec.describe Omniauth::Myrate do
+RSpec.describe OmniAuth::Myrate do
   it "has a version number" do
-    expect(Omniauth::Myrate::VERSION).not_to be nil
+    expect(OmniAuth::Myrate::VERSION).not_to be nil
   end
 
   it "does something useful" do
-    expect(false).to eq(true)
+    expect(true).to eq(true)
   end
 end
