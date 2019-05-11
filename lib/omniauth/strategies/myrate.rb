@@ -4,9 +4,8 @@ module OmniAuth
   module Strategies
     # Main class for Myrate strategy.
     class Myrate < OmniAuth::Strategies::OAuth2
-      CALLBACK_URL = 'https://clone-with-myrate-staging-t1.herokuapp.com/users/auth/myrate/callback' # TODO
-      USERINFO_URL = 'https://n-license.firebaseapp.com/public/users'
-      # Give your strategy a name.
+      USER_INFO_URL = 'https://n-license.firebaseapp.com/public/users'
+
       option :name, 'myrate'
 
       option :client_options, site: 'https://n-license.firebaseapp.com/',
@@ -41,7 +40,7 @@ module OmniAuth
             "code": request.params['code'],
             "client_id": options.client_id,
             "client_secret": options.client_secret,
-            "redirect_uri": CALLBACK_URL
+            "redirect_uri": callback_url
           }
         )
 
@@ -50,7 +49,7 @@ module OmniAuth
 
         response = client.request(
           :get,
-          "#{USERINFO_URL}/#{token['myrate_id']}",
+          "#{USER_INFO_URL}/#{token['myrate_id']}",
           headers: {
             "Authorization": "Bearer #{token['access_token']}"
           }
