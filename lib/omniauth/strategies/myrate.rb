@@ -30,28 +30,15 @@ module OmniAuth
       def raw_info
         return @raw_info if @raw_info
 
-        response = access_token.post(
-          '/oauth/access_token',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: {
-            "grant_type": 'authorization_code',
-            "code": request.params['code'],
-            "client_id": options.client_id,
-            "client_secret": options.client_secret,
-            "redirect_uri": callback_url
-          }
-        )
+        raise CallbackError.new(:invalid_token, 'Failed to get user data from userinfo api') if access_token['myrate_id'].empty?
 
-        token = response.parsed
-        log :debug, "got token from authorization api: #{token}"
+        log :debug, "got access_token, token: #{access_token.token}, myrate_id: #{access_token['myrate_id']}"
 
         response = client.request(
           :get,
-          "#{USER_INFO_URL}/#{token['myrate_id']}",
+          "#{USER_INFO_URL}/#{access_token['myrate_id']}",
           headers: {
-            "Authorization": "Bearer #{token['access_token']}"
+            "Authorization": "Bearer #{access_token.token}"
           }
         ).parsed
 
