@@ -32,8 +32,12 @@ module OmniAuth
 
         raise CallbackError.new(:invalid_token, 'Failed to get user data from userinfo api') if access_token['myrate_id'].empty?
 
-        log :debug, "got access_token, token: #{access_token.token}, myrate_id: #{access_token['myrate_id']}"
+        log :debug, "access_token, token: #{access_token.token}, myrate_id: #{access_token['myrate_id']}"
 
+        @raw_info = user_info(access_token)
+      end
+
+      def user_info(access_token)
         response = client.request(
           :get,
           "#{USER_INFO_URL}/#{access_token['myrate_id']}",
@@ -45,7 +49,7 @@ module OmniAuth
         log :debug, "got userinfo response: #{response}"
         raise CallbackError.new(:invalid_response, 'Failed to get user data from userinfo api') unless response['response'] == 'ok'
 
-        @raw_info = response['userData']
+        response['userData']
       end
 
       def callback_url

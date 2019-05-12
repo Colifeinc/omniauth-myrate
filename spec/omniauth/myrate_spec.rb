@@ -104,6 +104,20 @@ RSpec.describe OmniAuth::Myrate do
       end
     end
   end
+
+  describe 'user_info' do
+    it 'should verify hd if options hd is not set' do
+      client_mock = double('client')
+      token_mock = double('token')
+      response_mock = double('response')
+      allow(response_mock).to receive(:parsed).and_return('response' => 'ok', 'userData' => 'user data')
+      allow(client_mock).to receive(:request).and_return(response_mock)
+      allow(token_mock).to receive(:token)
+      allow(token_mock).to receive(:[]).with('myrate_id')
+      allow(subject).to receive(:client).and_return(client_mock)
+      expect(subject.send(:user_info, token_mock)).to eq('user data')
+    end
+  end
 end
 
 private
